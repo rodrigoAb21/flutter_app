@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/providers/menu_provider.dart';
 import 'package:flutter_app/src/utils/icon_finder_util.dart';
+
  
 class HomePage extends StatelessWidget {
   @override
@@ -21,7 +22,7 @@ class HomePage extends StatelessWidget {
       initialData: [],
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot){
         return ListView(
-          children: _listaItems(snapshot.data),
+          children: _listaItems(snapshot.data, context),
         );
       },
     );
@@ -29,7 +30,7 @@ class HomePage extends StatelessWidget {
     
   }
 
-  List<Widget> _listaItems( List<dynamic> data) {
+  List<Widget> _listaItems( List<dynamic> data, BuildContext context) {
     final List<Widget> opciones = [];
     data.forEach((opt){
       final widgetTemp = ListTile(
@@ -37,7 +38,7 @@ class HomePage extends StatelessWidget {
         leading: getIcon(opt['icon']),
         trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
         onTap: (){
-
+          Navigator.pushNamed(context, opt['ruta']);
         },
       );
 
